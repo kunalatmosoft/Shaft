@@ -13,6 +13,7 @@ export default function Register() {
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
   const { signup } = useAuth();
   const router = useRouter();
 
@@ -36,6 +37,15 @@ export default function Register() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalAccept = () => {
+    setIsModalOpen(false);
+    // Add any additional logic for accepting terms if needed
   };
 
   return (
@@ -98,6 +108,16 @@ export default function Register() {
               <Lock className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
             </div>
           </div>
+          <div className="text-sm text-gray-600">
+            By signing up, you agree to our{' '}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="text-indigo-600 hover:text-indigo-500 underline"
+            >
+              Terms and Conditions
+            </button>
+          </div>
           <button
             type="submit"
             disabled={loading}
@@ -117,6 +137,33 @@ export default function Register() {
           </Link>
         </p>
       </div>
+
+      {/* Terms and Conditions Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 space-y-4">
+            <h3 className="text-xl font-bold">Terms and Conditions</h3>
+            <p className="text-sm text-gray-600">
+              By using this service, you agree to our terms and conditions, including but not limited to our privacy
+              policy, acceptable use policy, and other guidelines. Please read carefully before proceeding.
+            </p>
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={handleModalAccept}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              >
+                Accept
+              </button>
+              <button
+                onClick={handleModalClose}
+                className="px-4 py-2 bg-gray-300 rounded-md hover:bg-gray-400"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
