@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Home, Users, DollarSign, Calendar, Menu, X, LogOut } from 'lucide-react';
+import { Home, Users, DollarSign, Calendar, Menu, X, LogOut, BarChart2, Ship, Notebook } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import {Ship} from 'lucide-react'
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -27,6 +27,8 @@ export default function Navbar() {
     { name: 'Contacts', href: '/contacts', icon: Users },
     { name: 'Deals', href: '/deals', icon: DollarSign },
     { name: 'Calendar', href: '/calendar', icon: Calendar },
+    { name: 'Analytics', href: '/analytics', icon: BarChart2 },
+    { name: 'Tasklists', href: '/notes', icon: Notebook },
   ];
 
   return (
@@ -99,3 +101,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
